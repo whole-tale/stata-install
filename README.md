@@ -27,7 +27,8 @@ in an email.
 ## Download installation media
 
 Installation media must be downloaded from STATA Corp. Download
-information is provided in an email.
+information is provided in an email. Remainder of this document assumes that you
+store the downloaded source in `/src` on host machine.
 
 ### Clone this repo
 
@@ -38,9 +39,17 @@ cd stata-install
 
 ## Manually install
 
-Follow the installation documentation for the selected version
-to install STATA to a temporary Docker container. Create a tar.gz 
-file and copy the archive to the cloned directory.
+```
+(host) $ docker run --rm -ti -v /src:/src buildpack-deps:bionic bash
+(cont) $ mkdir -p /tmp/statafiles
+(cont) $ mkdir -p /usr/local/stata16
+(cont) $ tar xzf /src/Stata16Linux64.tar.gz -C /tmp/statafiles
+(cont) $ cd /usr/local/stata16
+(cont) $ /tmp/statafiles/install
+(cont) $ tar cvzf /src/stata16-installed.tar.gz /usr/local/stata16
+(cont) $ exit
+(host) $ cp /src/stata16-installed.tar.gz .  # where . == stata-install clone
+```
 
 ### Build the image
 
